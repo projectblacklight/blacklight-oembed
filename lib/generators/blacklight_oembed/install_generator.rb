@@ -10,6 +10,9 @@ module BlacklightOembed
       copy_file "blacklight_oembed.js", "app/assets/javascripts/blacklight_oembed.js"
     end
 
+    def inject_routes
+      route "mount Blacklight::Oembed::Engine, at: 'oembed'"
+    end
 
     def configuration
       inject_into_file 'app/controllers/catalog_controller.rb', after: "configure_blacklight do |config|" do

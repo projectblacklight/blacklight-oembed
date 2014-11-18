@@ -8,6 +8,8 @@ module Blacklight
         OEmbed::Providers.register_all
       end
 
+      Blacklight::Oembed::Engine.config.render_helper = :render_oembed_tag_async
+
     end
   end
 end
