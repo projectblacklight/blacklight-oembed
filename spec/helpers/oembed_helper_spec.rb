@@ -24,7 +24,7 @@ describe Blacklight::Oembed::OembedHelper do
   end
 
   it "should render nothing if no oembed url is available" do
-    expect(helper.render_oembed_tag(document)).to be_blank
+    expect(helper.render_oembed_solr_document_tag(document)).to be_blank
   end
 
   describe "async" do
@@ -37,7 +37,7 @@ describe Blacklight::Oembed::OembedHelper do
     end
 
     it "should render a placeholder for oembed data" do
-      rendered = helper.render_oembed_tag document
+      rendered = helper.render_oembed_solr_document_tag document
       expect(rendered).to have_css "[data-embed-url]"
       expect(rendered).to have_css "[data-embed-url='#{blacklight_oembed_engine.embed_url(url: "http://some/uri")}']"
     end
@@ -58,12 +58,12 @@ describe Blacklight::Oembed::OembedHelper do
 
     it "should fetch oembed markup for a url" do
       allow(OEmbed::Providers).to receive(:get).with('http://some/uri').and_return oembed_obj
-      rendered = helper.render_oembed_tag document
+      rendered = helper.render_oembed_solr_document_tag document
       expect(rendered).to eq "some-markup"
     end
 
     it "should gracefully fail to a view link" do
-      rendered = helper.render_oembed_tag document
+      rendered = helper.render_oembed_solr_document_tag document
       expect(rendered).to have_link "View", href: "http://some/uri"
     end
   end

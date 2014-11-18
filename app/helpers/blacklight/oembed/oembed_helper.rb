@@ -1,11 +1,14 @@
 module Blacklight::Oembed
   module OembedHelper
 
-    def render_oembed_tag document
+    def render_oembed_solr_document_tag document
       url = document.first(blacklight_config.show.oembed_field)
-
       return if url.blank?
 
+      render_oembed_tag url
+    end
+
+    def render_oembed_tag url
       send Blacklight::Oembed::Engine.config.render_helper, url
     end
 
