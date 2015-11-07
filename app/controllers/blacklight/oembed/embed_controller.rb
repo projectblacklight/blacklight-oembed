@@ -1,8 +1,8 @@
 module Blacklight::Oembed
-  class EmbedController < ActionController::Metal 
+  class EmbedController < ActionController::Base
+
     def show
-      self.content_type  = "application/json"
-      self.response_body = { html: get_embed_content(params[:url]) }.to_json
+      render json: { html: get_embed_content(params[:url]) }
     end
 
     private
@@ -11,7 +11,7 @@ module Blacklight::Oembed
       begin
         OEmbed::Providers.get(url).html.html_safe
       rescue OEmbed::NotFound
-        self.status = 400
+        response.status = 400
         ""
       end
     end

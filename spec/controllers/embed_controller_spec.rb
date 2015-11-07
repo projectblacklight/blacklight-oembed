@@ -3,6 +3,9 @@ require 'spec_helper'
 describe Blacklight::Oembed::EmbedController do
   routes { Blacklight::Oembed::Engine.routes }
   describe "show" do
+
+    render_views
+
     before do
       Blacklight::Oembed::Engine.config.render_helper = :render_oembed_tag_embed
     end
