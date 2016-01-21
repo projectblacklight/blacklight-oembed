@@ -1,6 +1,6 @@
 require "bundler/gem_tasks"
 
-ZIP_URL = "https://github.com/projectblacklight/blacklight-jetty/archive/v4.10.2.zip"
+ZIP_URL = "https://github.com/projectblacklight/blacklight-jetty/archive/v4.10.4.zip"
 APP_ROOT = File.dirname(__FILE__)
 
 require 'rspec/core/rake_task'
@@ -18,7 +18,7 @@ end
 desc "Load fixtures"
 task :fixtures => ['engine_cart:generate'] do
   within_test_app do
-      system "rake blacklight:solr:seed RAILS_ENV=test"
+      system "rake blacklight:index:seed RAILS_ENV=test"
       abort "Error running fixtures" unless $?.success?
   end
 end
@@ -54,7 +54,7 @@ task :server do
 
   Jettywrapper.wrap(jetty_params) do
     within_test_app do
-      system "rake blacklight:solr:seed"
+      system "rake blacklight:index:seed"
       system "bundle exec rails s"
     end
   end
