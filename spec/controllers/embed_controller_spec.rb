@@ -14,15 +14,15 @@ describe Blacklight::Oembed::EmbedController do
       double(html: "some-markup")
     end
 
-    it "should fetch oembed markup for a url" do
+    it "fetches oembed markup for a url" do
       allow(OEmbed::Providers).to receive(:get).with('http://some/uri').and_return oembed_obj
-      get :show, url: 'http://some/uri'
+      get :show, params: { url: 'http://some/uri' }
       json = JSON.parse(response.body)
       expect(json["html"]).to eq "some-markup"
     end
 
-    it "should gracefully fail to a view link" do
-      get :show, url: 'http://some/uri'
+    it "gracefully fails to a view link" do
+      get :show, params: { url: 'http://some/uri' }
       expect(response.status).to eq 400
       json = JSON.parse(response.body)
       expect(json["html"]).to be_blank
