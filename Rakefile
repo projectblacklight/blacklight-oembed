@@ -1,12 +1,10 @@
 require "bundler/gem_tasks"
 
-ZIP_URL = "https://github.com/projectblacklight/blacklight-jetty/archive/v4.10.4.zip"
 APP_ROOT = File.dirname(__FILE__)
 
 require 'rspec/core/rake_task'
 require 'engine_cart/rake_task'
-
-require 'jettywrapper'
+require 'solr_wrapper'
 
 task :default => :ci
 
@@ -24,15 +22,14 @@ task :fixtures => ['engine_cart:generate'] do
 end
 
 desc "Execute Continuous Integration build"
-task :ci => ['jetty:clean', 'engine_cart:generate'] do
+task ci: 'engine_cart:generate' do
 
   ENV['environment'] = "test"
-  jetty_params = Jettywrapper.load_config
-  jetty_params[:startup_wait]= 60
-
-  Jettywrapper.wrap(jetty_params) do
-    Rake::Task['fixtures'].invoke
-    Rake::Task['spec'].invoke
+  SolrWrapper.wrap(port: '8983') do |solr|
+    solr.with_collection(name: 'blacklight-core', dir: File.join(File.expand_path(File.dirname(__FILE__)), 'solr', 'conf')) do
+      Rake::Task['fixtures'].invoke
+      Rake::Task['spec'].invoke
+    end
   end
 end
 
@@ -45,14 +42,7 @@ task :server do
     Rake::Task['engine_cart:generate'].invoke
   end
 
-  unless File.exists? 'jetty'
-    Rake::Task['jetty:clean'].invoke
-  end
-
-  jetty_params = Jettywrapper.load_config
-  jetty_params[:startup_wait]= 60
-
-  Jettywrapper.wrap(jetty_params) do
+  SolrWrapper.wrap(port: '8983')  do
     within_test_app do
       system "rake blacklight:index:seed"
       system "bundle exec rails s"
