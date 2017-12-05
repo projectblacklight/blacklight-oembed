@@ -56,6 +56,14 @@ OEmbed::Providers.register(purl_provider)
 
 You need a solr field containing a URL to an embeddable object.
 
+### Additional configurations
+Blacklight OEmbed allows for more configurations. In an initializer, you can add additional params that will be passed through to an OEmbed provider.
+
+```
+# config/initializers/blacklight_oembed.rb
+Blacklight::Oembed::Engine.config.additional_params = [:canvas_index]
+```
+
 ## Contributing
 
 1. Fork it ( http://github.com/sul-dlss/blacklight-oembed/fork )
