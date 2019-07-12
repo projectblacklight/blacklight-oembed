@@ -9,7 +9,7 @@ module Blacklight::Oembed
 
     def get_embed_content(url, add_params)
       begin
-        OEmbed::Providers.get(url, **add_params).html.html_safe
+        OEmbed::Providers.get(url, **add_params.transform_values { |v| URI.encode(v) }).html.html_safe
       rescue OEmbed::NotFound
         response.status = 400
         ""
