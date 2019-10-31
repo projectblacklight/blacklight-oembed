@@ -3,11 +3,16 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in blacklight-gallery.gemspec
 gemspec
 
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
+  "https://github.com/#{repo_name}.git"
+end
+
 # BEGIN ENGINE_CART BLOCK
-# engine_cart: 0.8.0
-# engine_cart stanza: 0.8.0
+# engine_cart: 2.2.1
+# engine_cart stanza: 0.10.0
 # the below comes from engine_cart, a gem used to test this Rails engine gem in the context of a Rails app.
-file = File.expand_path("Gemfile", ENV['ENGINE_CART_DESTINATION'] || ENV['RAILS_ROOT'] || File.expand_path(".internal_test_app", File.dirname(__FILE__)))
+file = File.expand_path('Gemfile', ENV['ENGINE_CART_DESTINATION'] || ENV['RAILS_ROOT'] || File.expand_path('.internal_test_app', File.dirname(__FILE__)))
 if File.exist?(file)
   begin
     eval_gemfile file
@@ -18,14 +23,27 @@ if File.exist?(file)
 else
   Bundler.ui.warn "[EngineCart] Unable to find test application dependencies in #{file}, using placeholder dependencies"
 
-  gem 'rails', ENV['RAILS_VERSION'] if ENV['RAILS_VERSION']
+  if ENV['RAILS_VERSION']
+    if ENV['RAILS_VERSION'] == 'edge'
+      gem 'rails', github: 'rails/rails'
+      ENV['ENGINE_CART_RAILS_OPTIONS'] = '--edge --skip-turbolinks'
+    else
+      gem 'rails', ENV['RAILS_VERSION']
+    end
+  end
 
-  if ENV['RAILS_VERSION'].nil? || ENV['RAILS_VERSION'] =~ /^4.2/
-    gem 'responders', "~> 2.0"
-    gem 'sass-rails', ">= 5.0"
-  else
-    gem 'bootstrap-sass', '< 3.3.5' # 3.3.5 requires sass 3.3, incompatible with sass-rails 4.x
-    gem 'sass-rails', "< 5.0"
+  case ENV['RAILS_VERSION']
+  when /^5.[12]/
+    gem 'sass-rails', '~> 5.0'
+  when /^4.2/
+    gem 'responders', '~> 2.0'
+    gem 'sass-rails', '>= 5.0'
+    gem 'coffee-rails', '~> 4.1.0'
+  when /^4.[01]/
+    gem 'sass-rails', '< 5.0'
   end
 end
 # END ENGINE_CART BLOCK
+unless File.exist?(file)
+  eval_gemfile File.expand_path('spec/test_app_templates/Gemfile.extra', File.dirname(__FILE__))
+end
