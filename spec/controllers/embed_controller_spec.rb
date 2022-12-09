@@ -30,13 +30,13 @@ describe Blacklight::Oembed::EmbedController do
     end
 
     it 'passes along configured additional keys' do
-      allow(OEmbed::Providers).to receive(:get).with('http://some/uri', canvas_index: '5').and_return oembed_obj
+      allow(OEmbed::Providers).to receive(:get).with('http://some/uri', { canvas_index: '5' }).and_return oembed_obj
       get :show, params: { url: 'http://some/uri', canvas_index: '5' }
       expect(response.status).to eq 200
     end
 
     it 'URI encodes data from additional keys' do
-      allow(OEmbed::Providers).to receive(:get).with('http://some/uri', suggested_search: 'ep%C3%A9e').and_return oembed_obj
+      allow(OEmbed::Providers).to receive(:get).with('http://some/uri', { suggested_search: 'ep%C3%A9e' }).and_return oembed_obj
       get :show, params: { url: 'http://some/uri', suggested_search: 'epée' }
       expect(response.status).to eq 200
     end

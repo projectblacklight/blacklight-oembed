@@ -18,12 +18,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rails"
-  spec.add_dependency 'blacklight', '~> 7.0'
+  spec.add_dependency 'blacklight', '>= 7.0', '< 9'
   spec.add_dependency "ruby-oembed"
 
   spec.add_development_dependency "bundler", ">= 1.5"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec-rails", "~> 3.1"
+  spec.add_development_dependency "rspec-rails", "~> 6"
   spec.add_development_dependency "rspec-its"
   spec.add_development_dependency "rspec-activemodel-mocks"
   spec.add_development_dependency "rspec-collection_matchers"
