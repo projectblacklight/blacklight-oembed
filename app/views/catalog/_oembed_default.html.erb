@@ -1,5 +1,1 @@
-<% if rendered = render_oembed_solr_document_tag(document) %>
-<div class="oembed-widget">
-  <%= rendered %>
-</div>
-<% end %>
+<%= render Blacklight::Oembed::DocumentOembedComponent.new(document: document, presenter: document_presenter(document)) %>

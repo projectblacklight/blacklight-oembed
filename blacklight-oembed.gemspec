@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rails"
-  spec.add_dependency 'blacklight', '>= 7.0', '< 9'
+  spec.add_dependency 'blacklight', '>= 7.25', '< 9'
   spec.add_dependency "ruby-oembed"
 
   spec.add_development_dependency "bundler", ">= 1.5"
