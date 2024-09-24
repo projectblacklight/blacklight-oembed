@@ -7,7 +7,7 @@ module Blacklight::Oembed
 
     private
 
-    ruby2_keywords def get_embed_content(url, add_params = {})
+    def get_embed_content(url, add_params = {})
       begin
         OEmbed::Providers.get(url, add_params.transform_values { |v| CGI.escape(v) }).html.html_safe
       rescue OEmbed::NotFound
