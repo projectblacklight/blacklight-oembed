@@ -7,8 +7,7 @@ describe Blacklight::Oembed::EmbedController do
     render_views
 
     before do
-      Blacklight::Oembed::Engine.config.render_helper = :render_oembed_tag_embed
-      Blacklight::Oembed::Engine.config.additional_params = [:canvas_index, :suggested_search]
+      Blacklight::Oembed::Engine.config.additional_params = %i[canvas_index suggested_search]
     end
 
     let :oembed_obj do

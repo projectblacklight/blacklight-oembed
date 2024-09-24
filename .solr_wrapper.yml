@@ -2,5 +2,5 @@
 # port: 8983
 version: 9.6.1
 collection:
-  dir: lib/generators/blacklight/templates/solr/conf
+  dir: .internal_test_app/solr/conf
   name: blacklight-core

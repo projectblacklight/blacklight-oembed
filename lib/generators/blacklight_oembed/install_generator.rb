@@ -19,12 +19,21 @@ module BlacklightOembed
     end
 
     def configuration
-      inject_into_file 'app/controllers/catalog_controller.rb', after: "configure_blacklight do |config|" do
-        <<-EOF
+      inject_into_file 'app/controllers/catalog_controller.rb', after: 'configure_blacklight do |config|' do
+        if ENV['CI_TEST_LEGACY_CONFIGURATION'].present? || Gem::Version.new(Blacklight::VERSION) < Gem::Version.new('8.0')
+          <<-EOF
+
+            config.show.oembed_field = :oembed_url_ssm
+            config.show.partials.insert(1, :oembed)
+          EOF
+        else
+          <<-EOF
 
           config.show.oembed_field = :oembed_url_ssm
-          config.show.partials.insert(1, :oembed)
-        EOF
+          config.show.render_oembed_using_async_javascript = true
+          config.show.embed_component = Blacklight::Oembed::DocumentOembedComponent
+          EOF
+        end
       end
     end
   end
