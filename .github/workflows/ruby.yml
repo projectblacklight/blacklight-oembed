@@ -9,17 +9,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    name: test (ruby ${{ matrix.ruby }} / rails ${{ matrix.rails_version }} / blacklight ${{ matrix.blacklight_version }} ${{ matrix.additional_name }})
     strategy:
       matrix:
-        ruby: [2.7, '3.0']
-        rails_version: ['6.1.7', '7.0.4']
+        ruby: ['3.3']
+        rails_version: ['7.1.4', '7.2.1']
         blacklight_version: ['~> 7.0']
+        additional_name: ['']
         include:
-        - ruby: '3.1'
-          rails_version: '7.0.4'
-        - ruby: '3.1'
-          rails_version: '7.0.4'
-          blacklight_version: 'github'
+        - ruby: '3.3'
+          rails_version: '7.2.1'
+          blacklight_version: '~> 8.0'
+          additional_name: ''
     env:
       RAILS_VERSION: ${{ matrix.rails_version }}
       BLACKLIGHT_VERSION: ${{ matrix.blacklight_version }}
