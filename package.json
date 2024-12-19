@@ -1,0 +1,23 @@
+{
+  "name": "blacklight-oembed",
+  "version": "1.2.0",
+  "description": "Oembed behavior for Blacklight",
+  "main": "app/assets/javascripts/blacklight_oembed/jquery.oembed.js",
+  "files": [
+    "app/assets/javascripts/blacklight_oembed/*.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/projectblacklight/blacklight-oembed.git"
+  },
+  "author": "Chris Beer, Justin Coyne, et al.",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/projectblacklight/blacklight-oembed/issues"
+  },
+  "homepage": "https://github.com/projectblacklight/blacklight-oembed#readme",
+  "dependencies": {}
+}
