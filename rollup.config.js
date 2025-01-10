@@ -19,7 +19,7 @@ const rollupConfig = {
     file: `app/assets/javascripts/blacklight_oembed/${fileDest}.js`,
     format: ESM ? 'es' : 'umd',
     generatedCode: { preset: 'es2015' },
-    name: ESM ? undefined : 'BlacklightOembed'
+    name: ESM ? undefined : 'oembed'
   },
   plugins: [includePaths(includePathOptions)]
 }
