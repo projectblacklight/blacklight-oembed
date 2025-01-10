@@ -18,6 +18,10 @@ module BlacklightOembed
       copy_file "oembed_providers.rb", "config/initializers/oembed_providers.rb"
     end
 
+    def appease_sprockets4
+      append_to_file 'app/assets/config/manifest.js', "\n//= link blacklight-oembed/oembed.js"
+    end
+
     def configuration
       inject_into_file 'app/controllers/catalog_controller.rb', after: 'configure_blacklight do |config|' do
         if ENV['CI_TEST_LEGACY_CONFIGURATION'].present? || Gem::Version.new(Blacklight::VERSION) < Gem::Version.new('8.0')

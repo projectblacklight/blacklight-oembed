@@ -14,7 +14,7 @@ let includePathOptions = {
 };
 
 const rollupConfig = {
-  input: 'app/javascript/oembed.js',
+  input: 'app/javascript/blacklight-oembed/oembed.js',
   output: {
     file: `app/assets/javascripts/blacklight_oembed/${fileDest}.js`,
     format: ESM ? 'es' : 'umd',
