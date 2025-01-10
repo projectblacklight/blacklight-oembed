@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
@@ -12,32 +12,34 @@ jobs:
     name: test (ruby ${{ matrix.ruby }} / rails ${{ matrix.rails_version }} / blacklight ${{ matrix.blacklight_version }} ${{ matrix.additional_name }})
     strategy:
       matrix:
-        ruby: ['3.3']
-        rails_version: ['7.1.4', '7.2.1']
-        blacklight_version: ['~> 7.0']
-        additional_name: ['']
-        legacy_config: ['']
+        ruby: ["3.3"]
+        rails_version: ["7.1.5.1", "7.2.2.1", "8.0.1"]
+        blacklight_version: ["~> 8.0"]
+        additional_engine_cart_rails_options: ["--css bootstrap"]
+        additional_name: [""]
+        legacy_config: [""]
         include:
-        - ruby: '3.3'
-          rails_version: '7.2.1'
-          blacklight_version: '~> 8.0'
-          additional_name: ''
-        - ruby: '3.3'
-          rails_version: '7.2.1'
-          blacklight_version: '~> 8.0'
-          additional_name: 'with legacy partial config'
-          legacy_config: 'true'
+          - ruby: "3.3"
+            rails_version: "7.2.2.1"
+            blacklight_version: "~> 7.0"
+            additional_name: ""
+          - ruby: "3.3"
+            rails_version: "7.2.2.1"
+            blacklight_version: "~> 8.0"
+            additional_name: "with legacy partial config"
+            legacy_config: "true"
     env:
       RAILS_VERSION: ${{ matrix.rails_version }}
       BLACKLIGHT_VERSION: ${{ matrix.blacklight_version }}
       CI_TEST_LEGACY_CONFIGURATION: ${{ matrix.legacy_config }}
+      ENGINE_CART_RAILS_OPTIONS: "--skip-git --skip-listen --skip-spring --skip-keeps --skip-action-cable --skip-coffee --skip-test ${{ matrix.additional_engine_cart_rails_options }}"
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby ${{ matrix.ruby }}
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-    - name: Install dependencies with Rails ${{ matrix.rails_version }}
-      run: bundle install
-    - name: Run tests
-      run: bundle exec rake
+      - uses: actions/checkout@v2
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Install dependencies with Rails ${{ matrix.rails_version }}
+        run: bundle install
+      - name: Run tests
+        run: bundle exec rake
