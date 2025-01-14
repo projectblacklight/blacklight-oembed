@@ -19,6 +19,8 @@ module BlacklightOembed
     end
 
     def appease_sprockets4
+      return unless File.exist?('app/assets/config/manifest.js')
+
       append_to_file 'app/assets/config/manifest.js', "\n//= link blacklight-oembed/oembed.js"
     end
 
