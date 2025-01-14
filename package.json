@@ -1,6 +1,6 @@
 {
   "name": "blacklight-oembed",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Oembed behavior for Blacklight",
   "main": "app/assets/javascripts/blacklight_oembed/oembed.js",
   "type": "module",
