@@ -12,20 +12,20 @@ jobs:
     name: test (ruby ${{ matrix.ruby }} / rails ${{ matrix.rails_version }} / blacklight ${{ matrix.blacklight_version }} ${{ matrix.additional_name }})
     strategy:
       matrix:
-        ruby: ["3.3"]
-        rails_version: ["7.1.5.1", "7.2.2.1", "8.0.1"]
+        ruby: ["3.4"]
+        rails_version: ["7.2.3.1", "8.0.5", "8.1.3"]
         blacklight_version: ["~> 8.0"]
         view_component_version: ["~> 3.0"]
         additional_engine_cart_rails_options: ["--css bootstrap"]
         additional_name: [""]
         legacy_config: [""]
         include:
-          - ruby: "3.3"
-            rails_version: "7.2.2.1"
+          - ruby: "3.4"
+            rails_version: "7.2.3.1"
             blacklight_version: "~> 7.0"
             additional_name: ""
-          - ruby: "3.3"
-            rails_version: "7.2.2.1"
+          - ruby: "3.4"
+            rails_version: "7.2.3.1"
             blacklight_version: "~> 8.0"
             additional_name: "with legacy partial config"
             legacy_config: "true"
