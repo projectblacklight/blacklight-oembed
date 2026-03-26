@@ -4,7 +4,7 @@ module Blacklight
       attr_reader :document, :presenter, :classes
 
       def initialize(document:, presenter:, classes: ['oembed-widget'], **kwargs)
-        super
+        super()
 
         @document = document
         @presenter = presenter
