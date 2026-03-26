@@ -1,8 +1,7 @@
-ENV["RAILS_ENV"] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
 require 'engine_cart'
 EngineCart.load_application!
-
 require 'rspec/collection_matchers'
 require 'rspec/its'
 require 'rspec/rails'
