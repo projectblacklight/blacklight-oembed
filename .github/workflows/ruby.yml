@@ -29,6 +29,10 @@ jobs:
             blacklight_version: "~> 8.0"
             additional_name: "with legacy partial config"
             legacy_config: "true"
+          - ruby: "3.4"
+            rails_version: "8.1.3"
+            blacklight_version: "~> 9.0"
+            additional_name: "Blacklight 9"
     env:
       RAILS_VERSION: ${{ matrix.rails_version }}
       BLACKLIGHT_VERSION: ${{ matrix.blacklight_version }}

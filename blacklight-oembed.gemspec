@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'blacklight', '>= 7.25', '< 9'
+  spec.add_dependency 'blacklight', '>= 7.25', '< 10'
   spec.add_dependency 'rails'
   spec.add_dependency 'ruby-oembed'
   spec.add_dependency 'view_component', '>= 3.0'

@@ -1,15 +1,16 @@
 module Blacklight
   module Oembed
     class DocumentOembedComponent < Blacklight::Component
-      attr_reader :document, :presenter, :classes
+      attr_reader :presenter, :classes
 
-      def initialize(document:, presenter:, classes: ['oembed-widget'], **kwargs)
+      def initialize(presenter:, classes: ['oembed-widget'], **kwargs)
         super()
 
-        @document = document
         @presenter = presenter
         @classes = classes
       end
+
+      delegate :document, to: :presenter
 
       def embed
         return if embed_url.blank?
